@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VetHome</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="./assets/css/styles.css">
+</head>
+<body>
+    
+<div class="d-flex">
+    <div class="bg-dark text-white p-3" style="min-height: 100vh; width: 250px;">
+        <h3 class="text-center mb-4">VetHome</h3>
+        <ul class="nav flex-column" id="menuLateral">
+            <li class="nav-item">
+                <a class="nav-link text-white" href="#inicio">Inicio</a>
+            </li>
+            <li class="nav-item" id="loginMenu">
+                <a class="nav-link text-white" href="login.html">Iniciar Sesión</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="#usuarios">Usuarios</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="#mascotas">Mascotas</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="#consultas">Consultas</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="#reseñas">Reseñas</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="#inventario">Inventario</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" id="perfil-link" href="#verperfil">Ver Perfil</a>
+            </li>
+        </ul>
+        <div id="logoutContainer" class="text-center mt-4 d-none">
+            <button id="logoutBtn" class="btn btn-danger w-100">Cerrar Sesión</button>
+        </div>
+    </div>
+    
+    <div class="flex-grow-1 p-4">
+        <h1 class="text-center">¡Bienvenido a la veterinaria VetHome!</h1>
+        <div class="text-center mb-4">
+            <img src="./assets/img/clínica-veterinaria.jpg" alt="Bienvenida VetHome" class="img-fluid rounded shadow">
+        </div>
+
+        <div id="inicio" class="container mt-3">
+            <h2 class="text-center mb-4">Nuestros Servicios</h2>
+        </div>
+
+        <div id="mascotas" class="container mt-5">
+            <h2 class="text-center">Registro de Mascotas</h2>
+            <p class="text-center">Aquí podrás registrar tu mascota.</p>
+            <div class="text-center mb-4">
+                <button class="btn btn-custom btn-servicio">Registrar Mascotas</button>
+            </div>
+        </div>
+
+        <div id="consultas" class="container mt-5">
+            <h2 class="text-center">Consultas Médicas</h2>
+            <p class="text-center">Aquí podrás agendar y ver tus consultas médicas.</p>
+            <div class="text-center mb-4">
+                <button class="btn btn-custom btn-servicio">Agendar Consulta</button>
+            </div>
+        </div>
+        
+        <div id="reseñas" class="container mt-5">
+            <h2 class="text-center">Reseñas de Clientes</h2>
+            <p class="text-center">Aquí los clientes pueden dejar sus comentarios y calificaciones.</p>
+            <div class="text-center mb-4">
+                <button class="btn btn-custom btn-servicio">Agregar/Ver Reseñas</button>
+            </div>
+        </div>
+
+        <div id="inventario" class="container mt-5">
+            <h2 class="text-center">Inventario de la tienda</h2>
+            <p class="text-center">Aquí podrás visualizar nuestro inventario para solicitar la compra presencialmente.</p>
+            <div class="text-center mb-4">
+                <button class="btn btn-custom btn-servicio">Ver Stock Disponible</button>
+            </div>
+        </div> 
+
+        <footer class="mt-5 text-center">
+            <p>&copy; 2025 VetHome - Todos los derechos reservados</p>
+        </footer>
+    </div>
+</div>
+
+<div class="modal fade" id="loginRequiredModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="loginRequiredLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="loginRequiredLabel">Acceso restringido</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body">
+        Debes iniciar sesión para acceder a este servicio.
+      </div>
+      <div class="modal-footer">
+        <a href="login.html" class="btn btn-primary">Ir a Iniciar Sesión</a>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modal-perfil" tabindex="-1" aria-labelledby="modal-perfil-label" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modal-perfil-label">Datos de tu perfil</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p><strong>Nombre:</strong> <span id="perfil-modal-nombre"></span></p>
+        <p><strong>RUT:</strong> <span id="perfil-modal-rut"></span></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+    // Función para comprobar sesión
+    function verificarSesion(e) {
+        const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+        if (!isLoggedIn) {
+            e.preventDefault();
+            const modal = new bootstrap.Modal(document.getElementById("loginRequiredModal"));
+            modal.show();
+        }
+    }
+
+    // Función para mostrar datos del usuario en el menú y el modal
+    function mostrarDatosUsuario() {
+        const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+        const loginMenu = document.getElementById("loginMenu");
+        const logoutContainer = document.getElementById("logoutContainer");
+        const perfilLink = document.getElementById("perfil-link");
+
+        if (isLoggedIn) {
+            const nombre = localStorage.getItem("nombre");
+            const rut = localStorage.getItem("rut");
+
+            loginMenu.classList.add("d-none"); // Oculta el enlace "Iniciar Sesión"
+            logoutContainer.classList.remove("d-none"); // Muestra el botón de cerrar sesión
+            
+            // Prepara el enlace "Ver Perfil" para que active el modal
+            perfilLink.dataset.bsToggle = "modal";
+            perfilLink.dataset.bsTarget = "#modal-perfil";
+            perfilLink.href = "#"; // Evita que navegue
+            perfilLink.innerHTML = `<span id="perfilNombre">${nombre}</span><br><small id="perfilRut">${rut}</small>`;
+
+            // Rellena los datos en el modal
+            document.getElementById("perfil-modal-nombre").textContent = nombre;
+            document.getElementById("perfil-modal-rut").textContent = rut;
+
+        } else {
+            // Si no hay sesión, regresa el menú a su estado original
+            loginMenu.classList.remove("d-none");
+            logoutContainer.classList.add("d-none");
+            perfilLink.dataset.bsToggle = "";
+            perfilLink.dataset.bsTarget = "";
+            perfilLink.href = "#verperfil";
+            perfilLink.innerHTML = "Ver Perfil";
+        }
+    }
+
+    // Asignar eventos y ejecutar al cargar la página
+    document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".btn-servicio").forEach(btn => {
+            btn.addEventListener("click", verificarSesion);
+        });
+
+        mostrarDatosUsuario();
+
+        // Botón de cerrar sesión
+        document.getElementById("logoutBtn").addEventListener("click", () => {
+            localStorage.clear();
+            alert("👋 Sesión cerrada correctamente.");
+            window.location.href = "login.html";
+        });
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
