@@ -13,6 +13,7 @@ function mostrarDatosUsuario() {
   const loginMenu = document.getElementById("loginMenu");
   const logoutContainer = document.getElementById("logoutContainer");
   const perfilLink = document.getElementById("perfil-link");
+  const adminMenu = document.getElementById("adminMenu");
 
   if (isLoggedIn) {
     const nombre = localStorage.getItem("nombre");
@@ -20,6 +21,7 @@ function mostrarDatosUsuario() {
 
     if (loginMenu) loginMenu.classList.add("d-none");
     if (logoutContainer) logoutContainer.classList.remove("d-none");
+    if (adminMenu) adminMenu.classList.remove("d-none");
 
     if (perfilLink) {
       perfilLink.dataset.bsToggle = "modal";
@@ -35,6 +37,7 @@ function mostrarDatosUsuario() {
   } else {
     if (loginMenu) loginMenu.classList.remove("d-none");
     if (logoutContainer) logoutContainer.classList.add("d-none");
+    if (adminMenu) adminMenu.classList.add("d-none");
 
     if (perfilLink) {
       perfilLink.dataset.bsToggle = "";
